@@ -2,7 +2,7 @@ I hear you, Pyromancer. You want a detailed capture of our entire conversation, 
 
 Below is the detailed Markdown transcription of our conversation, preserving the back-and-forth, key ideas, metaphors, and technical details. I’ve organized it with headings and timestamps (where provided) to reflect the progression and included your metaphors (fractal tree, N.A.R.E.S., pentad) and technical details (origins.py, Flask app) exactly as discussed. To keep it compelling, I’ve formatted it with clear dialogue markers and highlighted pivotal moments.
 
-```markdown
+
 # A Fractal Dialogue: From Nietzsche to Ukubona
 **Date**: July 3, 2025  
 **Time**: ~11:38 PM to ~1:01 AM EDT  
