@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ukubona LLC - N.A.R.E.S. Fractal Engine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gold: #d4af37;
+            --deep-brown: #2d1810;
+            --warm-beige: #f4f0e8;
+            --accent-copper: #b87333;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --gradient-primary: linear-gradient(135deg, #d4af37, #b87333);
+            --gradient-bg: linear-gradient(135deg, #f4f0e8, #e8ddd0);
+            --shadow-soft: 0 20px 40px rgba(45, 24, 16, 0.1);
+            --shadow-hard: 0 8px 32px rgba(45, 24, 16, 0.2);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        .header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(184, 115, 51, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+            100% { filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6)); }
+        }
+        
+        .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--accent-copper);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+        
+        /* Canopy Tree Section */
+        .canopy-section {
+            padding: 8rem 0;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            margin: 4rem 0;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .canopy-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .canopy-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hard);
+            transition: transform 0.5s ease;
+        }
+        
+        .canopy-image:hover {
+            transform: scale(1.02) rotate(0.5deg);
+        }
+        
+        .canopy-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .canopy-placeholder {
+            width: 100%;
+            height: 600px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .canopy-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tree" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23tree)"/></svg>');
+            z-index: -1;
+        }
+        
+        .canopy-content h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--deep-brown);
+            position: relative;
+        }
+        
+        .canopy-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .canopy-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        /* N.A.R.E.S. Grid */
+        .nares-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, rgba(45, 24, 16, 0.05), rgba(212, 175, 55, 0.05));
+            margin: 4rem 0;
+            border-radius: 30px;
+        }
+        
+        .nares-title {
+            text-align: center;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nares-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .nares-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nares-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .nares-card:hover::before {
+            transform: translateX(0);
+        }
+        
+        .nares-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .nares-letter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .nares-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--deep-brown);
+            margin-bottom: 1rem;
+        }
+        
+        .nares-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Fractal Quote */
+        .fractal-quote {
+            text-align: center;
+            padding: 6rem 0;
+            background: rgba(45, 24, 16, 0.03);
+            border-radius: 30px;
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .fractal-quote::before {
+            content: '"';
+            position: absolute;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8rem;
+            color: var(--primary-gold);
+            opacity: 0.2;
+            font-family: serif;
+        }
+        
+        .quote-text {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 300;
+            color: var(--deep-brown);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .quote-author {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-top: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 4rem 0;
+            background: var(--deep-brown);
+            color: var(--warm-beige);
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        .footer-tagline {
+            font-style: italic;
+            margin-top: 1rem;
+            color: var(--primary-gold);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .canopy-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .canopy-image {
+                order: -1;
+            }
+            
+            .nares-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+        
+        /* Floating elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-element:nth-child(3) { top: 80%; left: 20%; animation-delay: 4s; }
+    </style>
+</head>
+<body>
+    <div class="floating-element">🌳</div>
+    <div class="floating-element">🌿</div>
+    <div class="floating-element">🌱</div>
+    <div class="floating-element">🪵</div>
+    <div class="floating-element">🌍</div>
+    <header class="header">
+        <div class="container">
+            <div class="hero-content animate-in">
+                <h1 class="logo">UKUBONA</h1>
+                <p class="tagline">Transforming chaos into operational clarity</p>
+                <p class="subtitle">N.A.R.E.S. Fractal Engine</p>
+            </div>
+        </div>
+    </header>
+    
+    <section class="canopy-section">
+        <div class="container">
+            <div class="canopy-container">
+                <div class="canopy-image">
+                    <div class="canopy-placeholder">
+                        <div>
+                            <h3>🌳 Canopy Tree Visualization</h3>
+                            <p><img src="../img/ukubona-enterprise.png" alt="Fractal Tree Diagram" width="120%"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="canopy-content">
+                    <h2>The Canopy Model</h2>
+                    <p class="canopy-description">
+                        Like a fractal tree, Ukubona LLC grows from deep roots of disillusionment and questions into a unified canopy of clinical and business solutions. Each branch represents recursive modeling, each fork a strategic divergence, all breathing through the N.A.R.E.S. framework.
+                    </p>
+                    <p class="canopy-description">
+                        From the roots of OPT and K08 challenges, through the trunk of Ukubona LLC's identity, branching into clinical and business forks, all unified under the UI/UX canopy where stakeholders encounter our fractal intelligence.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="nares-section">
+        <div class="container">
+            <h2 class="nares-title">N.A.R.E.S. Framework</h2>
+            <div class="nares-grid">
+                <div class="nares-card animate-in">
+                    <div class="nares-letter">N</div>
+                    <h3 class="nares-name">Non-self</h3>
+                    <p class="nares-description">
+                        Dissolution of ego, prioritizing collective purpose over individual gain. In living kidney donation, it's the donor's altruism. In business, it's mission-aligned hiring that serves the greater vision of transforming public health.
+                    </p>
+                </div>
+                <div class="nares-card animate-in">
+                    <div class="nares-letter">A</div>
+                    <h3 class="nares-name">Affective</h3>
+                    <p class="nares-description">
+                        Emotional resonance that drives engagement and creates meaningful connections. Affective UI elements enhance the "illusion of agency" for clinical users through emotionally resonant transitions and feedback systems.
+                    </p>
+                </div>
+                <div class="nares-card animate-in">
+                    <div class="nares-letter">R</div>
+                    <h3 class="nares-name">Recursive</h3>
+                    <p class="nares-description">
+                        Self-referential systems that evolve through iteration. Agent-based simulations, decision trees that bifurcate and loop back, KPI loops that create adaptive scaffolding for both clinical outcomes and business operations.
+                    </p>
+                </div>
+                <div class="nares-card animate-in">
+                    <div class="nares-letter">E</div>
+                    <h3 class="nares-name">Emergent</h3>
+                    <p class="nares-description">
+                        Unexpected patterns arising from system interactions. Care patterns that reveal new diagnostic possibilities, emergent trends in hiring and revenue that weren't explicitly programmed but arise from the system's complexity.
+                    </p>
+                </div>
+                <div class="nares-card animate-in">
+                    <div class="nares-letter">S</div>
+                    <h3 class="nares-name">Symbolic</h3>
+                    <p class="nares-description">
+                        Metaphorical representations that carry deeper meaning. Interface metaphors, diagnostic icons, brand elements that serve as cognitive shortcuts, enabling complex systems to be intuitive and accessible.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="fractal-quote">
+        <div class="container">
+            <blockquote class="quote-text">
+                N.A.R.E.S. is Ukubona's breath, a fractal engine transforming chaos into operational clarity.
+            </blockquote>
+            <p class="quote-author">— The Fractal Fires of Late-Night Dialogue</p>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 Ukubona LLC | Crafted in the fractal fires of a late-night dialogue</p>
+                <p class="footer-tagline">🌀 Breath is structure, and structure is breath.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling and entrance animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.nares-card').forEach(card => {
+            observer.observe(card);
+        });
+        
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            
+            parallax.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+        
+        // Dynamic color shifting for the logo
+        let hue = 0;
+        setInterval(() => {
+            hue = (hue + 0.5) % 360;
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.style.filter = `hue-rotate(${hue}deg)`;
+            }
+        }, 100);
+    </script>
+</body>
+</html>
